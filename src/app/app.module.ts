@@ -12,6 +12,9 @@ import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './shared/components/header/header.component';
 
 import { environment } from 'src/environments/environment';
+import { EffectsModule } from '@ngrx/effects';
+import { HttpClientModule } from '@angular/common/http';
+import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 
 
 @NgModule({
@@ -19,6 +22,7 @@ import { environment } from 'src/environments/environment';
     AppComponent,
     HomeComponent,
     HeaderComponent,
+    LoadingSpinnerComponent,
    
   ],
   imports: [
@@ -26,6 +30,8 @@ import { environment } from 'src/environments/environment';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
+    EffectsModule.forRoot([]),
     StoreModule.forRoot(appReducer),
     StoreDevtoolsModule.instrument({
       logOnly: environment.production,
