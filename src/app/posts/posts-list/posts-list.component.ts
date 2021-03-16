@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AppState } from 'src/app/store/app.state';
-import { PostsState } from '../state/posts.state';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Post } from 'src/app/models/posts.model';
 import { getPosts } from '../state/posts.selector';
-import { deletePost } from '../state/posts.actions';
+import { deletePost, loadPosts } from '../state/posts.actions';
 import { Router } from '@angular/router';
 
 @Component({
@@ -20,13 +19,12 @@ export class PostsListComponent implements OnInit {
 
   ngOnInit(): void {
     this.posts = this.store.select(getPosts);
+    this.store.dispatch(loadPosts());
   }
   onDeletePost(id: string) {
     console.log(id)
-   // if (confirm("Are you sure to delete the post")) {
       this.store.dispatch(deletePost({ id }));
       this.router.navigate(['posts']);
-    //}
 
   }
 

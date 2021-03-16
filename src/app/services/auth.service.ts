@@ -9,7 +9,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   login(email: string, password: string): Observable<AuthResponseData> {
     return this.http.post<AuthResponseData>(
@@ -23,4 +23,24 @@ export class AuthService {
     const user = new User(data.email, data.idToken, data.localId, expirationDate);
     return user;
   }
+  getErrorMessage(message: string) {
+    switch (message) {
+      case 'EMAIL_NOT_FOUND':
+        return 'Email not found';
+      case 'INVALID_PASSWORD':
+        return 'Invalid password';
+        case 'EMAIL_EXISTS':
+          return 'Email exists';
+      default:
+        return 'unknown error occurs plz try again';
+
+    }
+  }
+  signup(email: string, password: string): Observable<AuthResponseData> {
+    return this.http.post<AuthResponseData>(
+      `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.FIREBASE_API_KEY}`,
+      { email, password, returnSecureToken: true }
+    );
+  }
+  
 }

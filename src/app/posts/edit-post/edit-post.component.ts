@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { Post } from 'src/app/models/posts.model';
 import { AppState } from 'src/app/store/app.state';
-import { editPost } from '../state/posts.actions';
+import { updatePost } from '../state/posts.actions';
 import {getPostById} from '../state/posts.selector';
 import {Router} from '@angular/router';
 
@@ -79,7 +79,7 @@ if(titleForm.touched && !titleForm.valid){
       title:this.postForm.value.title,
       description:this.postForm.value.description
     }
-    this.store.dispatch(editPost({post}));
+    this.store.dispatch(updatePost({post}));
     this.router.navigate(['posts']);
   }
   ngOnDestroy(){
